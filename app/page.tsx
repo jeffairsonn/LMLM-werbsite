@@ -1,249 +1,211 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-
-function RevealSection({
-  className = "",
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <section ref={ref} className={`page-section reveal ${className}`}>
-      {children}
-    </section>
-  );
-}
+// CSS chargé globalement via layout.tsx → globals.css
 
 export default function Home() {
   return (
     <>
-      {/* HERO */}
+      {/* ═══ HERO ═══ */}
       <div className="hero">
         <p className="eyebrow">Richard Bélénus</p>
-        <div className="hero-symbols">🔨 &nbsp; 🪞</div>
-        <h1>
-          Le Marteau
-          <br />
-          et le Miroir
+        <div className="heroSymbols">🔨 &thinsp; 🪞</div>
+        <h1 className="heroTitle">
+          Le Marteau<br />et le Miroir
         </h1>
-        <div className="titre-separator" />
+        <div className="titreSeparator" />
         <p className="subtitle">33 frappes pour se transformer</p>
-        <blockquote className="hero-quote">
-          Tu ne seras pas devenu quelqu&apos;un d&apos;autre.
-          <br />
-          Tu auras simplement cessé de te fuir.
-        </blockquote>
-        <div className="scroll-hint">
-          <span>Descends</span>
-          <div className="scroll-dot" />
+        <div className="heroIncipit">
+          <p>
+            Tu tiens un <em>maillet</em>.<br />
+            Devant toi, un <em>miroir</em>.
+          </p>
         </div>
       </div>
 
-      {/* DESCRIPTION */}
-      <RevealSection className="description-section">
-        <span className="section-label">Le livre</span>
-        <div className="or-line" />
-        <p>
-          Un marteau pour briser ce qui enferme.
-          <br />
-          Un miroir pour regarder, sans jugement, sans fuir.
-        </p>
-        <p
-          style={{
-            marginTop: 20,
-            fontSize: "1rem",
-            color: "var(--texte-doux)",
-          }}
-        >
-          Inspiré de trente-trois degrés de progression symbolique,
-          <br />
-          ce livre t&apos;accompagne à travers quatre actes intérieurs.
+      {/* ═══ PITCH ═══ */}
+      <hr className="sep" />
+      <section className="section">
+        <span className="sectionLabel">Le livre</span>
+        <div className="orLine" />
+
+        <p className="pitchIncipit">
+          En trente-trois étapes, il t&apos;invite<br />
+          à regarder ce que tu évites,<br />
+          à frapper ce qui t&apos;enferme,<br />
+          à devenir ce que tu es déjà<br />
+          sans oser l&apos;incarner.
         </p>
 
-        <div className="actes-grid">
-          <div className="acte-item">
-            <span className="acte-emoji">🪞</span>
-            <span className="acte-titre">Acte I — Le Miroir</span>
-            <span className="acte-desc">Voir. Reconnaître. Fissurer.</span>
-          </div>
-          <div className="acte-item">
-            <span className="acte-emoji">🔨</span>
-            <span className="acte-titre">Acte II — Le Marteau</span>
-            <span className="acte-desc">Sculpter. Frapper. Rompre.</span>
-          </div>
-          <div className="acte-item">
-            <span className="acte-emoji">🌀</span>
-            <span className="acte-titre">Acte III — La Traversée</span>
-            <span className="acte-desc">Intégrer. Écouter. Ajuster.</span>
-          </div>
-          <div className="acte-item">
-            <span className="acte-emoji">🔥</span>
-            <span className="acte-titre">Acte IV — L&apos;Œuvre</span>
-            <span className="acte-desc">Construire. Engager. Incarner.</span>
-          </div>
+        <div className="pitchBody">
+          <p>
+            Chaque chapitre agit comme une frappe juste&nbsp;: sur la peur, la honte,
+            le contrôle, les loyautés invisibles, les masques que tu croyais être toi.
+          </p>
+          <p style={{ fontStyle: 'italic', color: 'var(--or-clair)', textAlign: 'center' }}>
+            Jusqu&apos;à ce que quelque chose cède.<br />
+            Et qu&apos;autre chose naisse.
+          </p>
         </div>
 
-        <p
-          style={{
-            fontSize: "1rem",
-            color: "var(--texte-doux)",
-            fontStyle: "italic",
-          }}
-        >
-          Chaque frappe libère la forme prisonnière de ta pierre.
-          <br />
-          <span style={{ color: "var(--or)", fontStyle: "normal" }}>
-            33 frappes. Une pierre. Toi.
+        <span className="pitchCoupure" />
+
+        <p className="pitchAuteur">
+          Nourri par des traditions initiatiques anciennes et par une expérience intérieure
+          vécue, <strong>Richard Bélénus</strong> allie la force du symbole à la justesse
+          d&apos;un accompagnement profondément humain.<br /><br />
+          Son écriture directe, au «&nbsp;tu&nbsp;» le plus intime, ouvre un passage là
+          où d&apos;autres donnent des réponses.
+        </p>
+
+        <p className="pitchPublic">
+          Il s&apos;adresse à celles et ceux qui sentent qu&apos;un seuil les appelle.<br />
+          <span className="secondaire">
+            Chercheurs de sens, âmes en transition, esprits en quête de vérité.
           </span>
         </p>
-      </RevealSection>
 
-      {/* EXTRAIT GRATUIT */}
-      <RevealSection className="extrait-section">
-        <div className="extrait-card">
+        <div className="pitchQuestion">
+          <p>
+            Le marteau pèse. Le miroir ne ment pas.<br />
+            Reste une question&nbsp;:<br />
+            <strong>continuer à fuir… ou entrer vraiment&nbsp;?</strong>
+          </p>
+        </div>
+      </section>
+
+      {/* ═══ LES 4 ACTES ═══ */}
+      <hr className="sep" />
+      <section className={`section actesSection`}>
+        <span className="sectionLabel">Structure</span>
+        <div className="orLine" />
+
+        <div className="actesGrid">
+          {[
+            { emoji: '🪞', titre: 'Acte I — Le Miroir',    desc: 'Voir. Reconnaître. Fissurer.' },
+            { emoji: '🔨', titre: 'Acte II — Le Marteau',  desc: 'Sculpter. Frapper. Rompre.' },
+            { emoji: '🌊', titre: 'Acte III — La Traversée', desc: 'Intégrer. Écouter. Ajuster.' },
+            { emoji: '🔥', titre: "Acte IV — L'Œuvre",     desc: 'Construire. Engager. Incarner.' },
+          ].map((acte) => (
+            <div key={acte.titre} className="acteItem">
+              <span className="acteEmoji">{acte.emoji}</span>
+              <span className="acteTitre">{acte.titre}</span>
+              <span className="acteDesc">{acte.desc}</span>
+            </div>
+          ))}
+        </div>
+
+        <p className="actesBas">
+          Chaque frappe libère la forme prisonnière de ta pierre.<br />
+          <span>33 frappes. Une pierre. Toi.</span>
+        </p>
+      </section>
+
+      {/* ═══ EXTRAIT GRATUIT ═══ */}
+      <hr className="sep" />
+      <section className="section">
+        <div className="extraitCard">
           <h2>✦ EXTRAIT GRATUIT ✦</h2>
           <p>Les 4 premières frappes de l&apos;Acte I — format EPUB</p>
 
-          <div className="extrait-chapitres">
-            <span className="chapitre-tag">1. L&apos;Appel</span>
-            <span className="chapitre-tag">2. L&apos;Héritage</span>
-            <span className="chapitre-tag">3. Le Masque</span>
-            <span className="chapitre-tag">4. La Blessure</span>
+          <div className="extraitChapitres">
+            {["1. L'Appel", "2. L'Héritage", "3. Le Masque", "4. La Blessure"].map((ch) => (
+              <span key={ch} className="chapitreTag">{ch}</span>
+            ))}
           </div>
 
-          <div className="btn-group">
+          <div className="btnGroup">
             <a
               href="https://t.me/le_marteau_et_le_miroir"
-              className="btn btn-telegram"
+              className={`btn btnTelegram`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z" />
-              </svg>
+              <TelegramIcon />
               Canal Telegram
             </a>
-
-            <span className="btn-divider">— ou —</span>
-
+            <span className="btnDivider">— ou —</span>
             <a
               href="mailto:richardblns@proton.me?subject=Demande%20extrait%20EPUB%20-%20Le%20Marteau%20et%20le%20Miroir"
-              className="btn btn-outline"
+              className={`btn btnOutline`}
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              >
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
-              </svg>
+              <EmailIcon />
               Recevoir par email
             </a>
           </div>
 
-          <p className="badge-gratuit">
-            ✧ Gratuit · Sans inscription · Format EPUB
-          </p>
+          <p className="badgeGratuit">⚡ Gratuit · Sans inscription · Format EPUB</p>
         </div>
-      </RevealSection>
+      </section>
 
-      {/* LIVRE COMPLET */}
-      <RevealSection className="achat-section">
-        <span className="section-label">Le livre complet</span>
-        <div className="or-line" />
+      {/* ═══ LIVRE COMPLET ═══ */}
+      <hr className="sep" />
+      <section className={`section achatSection`}>
+        <span className="sectionLabel">Le livre complet</span>
+        <div className="orLine" />
         <h2>Les 33 frappes</h2>
-        <p>
-          Une transformation profonde, de la première fissure à la renaissance.
-        </p>
-        <div className="btn-group">
+        <p>Édition originale · Tirage limité</p>
+        <div className="btnGroup">
           <a
             href="mailto:richardblns@proton.me?subject=Commande%20-%20Le%20Marteau%20et%20le%20Miroir"
-            className="btn btn-primary"
+            className={`btn btnPrimary`}
           >
             Obtenir le livre complet
           </a>
-          <p
-            style={{
-              fontSize: "0.85rem",
-              color: "var(--texte-doux)",
-              fontStyle: "italic",
-              marginTop: 4,
-            }}
-          >
-            Édition originale · Tirage limité
-          </p>
         </div>
-      </RevealSection>
+      </section>
 
-      {/* CITATION FINALE */}
-      <RevealSection className="citation-section">
-        <p className="citation-finale">
-          Si ce texte t&apos;a touché,
-          <br />
-          ce n&apos;est pas un hasard.
-          <br />
-          <span style={{ color: "var(--or)" }}>
-            Certaines pierres savent quand elles doivent être frappées.
-          </span>
+      {/* ═══ CITATION FINALE ═══ */}
+      <hr className="sep" />
+      <section className={`section citationSection`}>
+        <p className="citationFinale">
+          Si ce texte t&apos;a touché, ce n&apos;est pas un hasard.<br />
+          <span>Certaines pierres savent quand elles doivent être frappées.</span>
         </p>
         <p className="devise">Entre · Frappe · Traverse · Deviens</p>
-      </RevealSection>
+      </section>
 
-      {/* CONTACT */}
-      <RevealSection className="contact-section">
-        <span className="section-label">Contact</span>
-        <div className="or-line" />
+      {/* ═══ CONTACT ═══ */}
+      <hr className="sep" />
+      <section className={`section contactSection`}>
+        <span className="sectionLabel">Contact</span>
+        <div className="orLine" />
         <p>Une question ? Une envie d&apos;échanger ?</p>
-        <div className="contact-links">
-          <a href="mailto:richardblns@proton.me" className="contact-link">
+        <div className="contactLinks">
+          <a href="mailto:richardblns@proton.me" className="contactLink">
             richardblns@proton.me
           </a>
           <a
             href="https://t.me/le_marteau_et_le_miroir"
-            className="contact-link telegram"
+            className={`contactLink contactLinkTelegram`}
             target="_blank"
             rel="noopener noreferrer"
           >
             @le_marteau_et_le_miroir
           </a>
         </div>
-      </RevealSection>
+      </section>
 
-      {/* FOOTER */}
-      <footer className="site-footer">
+      {/* ═══ FOOTER ═══ */}
+      <footer>
         <p>© Richard Bélénus, 2026 — Tous droits réservés</p>
         <p>« Entre. Frappe. Traverse. Deviens. »</p>
       </footer>
     </>
-  );
+  )
+}
+
+/* ─── Icônes SVG inline ─── */
+function TelegramIcon() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z" />
+    </svg>
+  )
+}
+
+function EmailIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+      <polyline points="22,6 12,13 2,6" />
+    </svg>
+  )
 }
